@@ -1,0 +1,72 @@
+<%- include("./partials/header", { title: "Add New Product" }) %>
+
+<div class="form-container">
+  <form action="/api/admin/add_product" method="POST" enctype="multipart/form-data">
+    
+    
+    <div id="logo" class="image-preview">
+      <img class="preview-img-logo" 
+      
+      src="/logo/siqfit.png" alt="">
+    </div>
+
+    <h2>A_SIQ_New_Product</h2>
+
+
+    <label for="name">Product Name</label>
+    <input type="text" name="name" placeholder="Enter product name" required>
+
+    <label for="price">Price</label>
+    <input type="number" name="price" placeholder="Enter price" required>
+
+    <label for="images">Product Images</label>
+    <input type="file" name="images" accept="image/*" multiple required onchange="previewImages(event)">
+    
+    <!-- 📸 Image Preview Area -->
+    <div id="preview" class="image-preview"></div>
+
+    <label for="stock">Stock</label>
+    <input type="number" name="stock" placeholder="Enter stock quantity" required>
+
+    <label for="category">Category</label>
+    <select name="category" required>
+      <option value="">Select category</option>
+      <option value="pants">Pants</option>
+      <option value="jeans">Jeans</option>
+      <option value="sweatpants">Sweatpants</option>
+      <option value="shirts">Shirts</option>
+      <option value="t-shirts">T-Shirts</option>
+      <option value="hoodies">Hoodies</option>
+    </select>
+
+    <label for="color">Color</label>
+    <input type="color" name="color" required>
+
+    <label for="description">Description</label>
+    <textarea name="description" placeholder="Enter a short description..."></textarea>
+
+    <button type="submit">Add Product</button>
+  </form>
+</div>
+
+<script>
+  // ✅ Show image previews before uploading
+  function previewImages(event) {
+    const preview = document.getElementById('preview');
+    preview.innerHTML = ''; // clear old previews
+    const files = Array.from(event.target.files);
+
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = 'preview-img';
+        preview.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+</script>
+
+<%- include("./partials/footer") %>

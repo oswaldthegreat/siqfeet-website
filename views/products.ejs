@@ -1,0 +1,40 @@
+<%- include("./partials/header", { title: "Products" }) %>
+
+<h2>All Products</h2>
+
+<div class="product-list">
+  <% products.forEach(p => { %>
+   
+    <div class="product-card">
+      <a style="text-decoration: none;" href="/product_details/<%= p._id %>">
+        <div class="image-wrapper">
+          <% if (p.images && p.images.length > 0) { %>
+            <img
+              src="<%= p.images[0].replace('public\\', '').replace('public/', '') %>"
+              alt="<%= p.name %>"
+            class="main-image"
+          >
+          <% if (p.images[1]) { %>
+            <img 
+              src="<%= p.images[1].replace('public\\', '').replace('public/', '') %>" 
+              alt="<%= p.name %>" 
+              class="hover-image"
+            >
+          <% } %>
+        <% } else { %>
+          <img src="/images/no-image.png" alt="No image" class="main-image">
+        <% } %>
+      </div>
+
+      <div class="product-info" >
+        <p style="color: black; font-size: larger;font-weight: 700;text-decoration: none;display: inline-block;"><%= p.name %></p> <p style="display: inline-block;color: black;">— $<%= p.price %></p><br>
+        <p style="color: black;display: inline;"><%= p.description %></p><br>
+        <a href="/product_details/<%= p._id %>">View Details</a>
+      </div>
+
+    </div>
+    
+  <% }) %>
+</div>
+
+<%- include("./partials/footer") %>

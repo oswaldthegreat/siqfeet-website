@@ -1,0 +1,261 @@
+<%- include("./partials/headerForProductDetails", { title: product.name }) %>
+
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: black;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .product-page {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    padding: 60px 10%;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  /* 🖼️ Product Images */
+  .product-images {
+    flex: 1;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .product-img {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .product-img:hover {
+    transform: scale(1.03);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* 📄 Product Info */
+  .product-info {
+    flex: 1;
+    max-width: 500px;
+    position: sticky;
+    top: 50px;
+    background: rgb(24, 21, 21);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .product-info h1 {
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #fff, #bbb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .category {
+    color: #ccc;
+    font-style: italic;
+    margin-bottom: 15px;
+  }
+
+  .description {
+    font-size: 1em;
+    color: #ddd;
+    line-height: 1.6;
+    margin-bottom: 25px;
+  }
+
+  .price {
+    font-size: 1.7em;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+  }
+
+  .stock span {
+    font-weight: 500;
+    color: #9ef;
+  }
+
+  .out-of-stock {
+    color: #f55;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 25px;
+  }
+
+  .quantity-input {
+    width: 60px;
+    padding: 8px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background: #111;
+    color: #fff;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  /* 🛒 Add to Cart Button (Formal Chrome) */
+  .add-to-cart {
+    padding: 10px 22px;
+    border: 1px solid #666;
+    border-radius: 8px;
+    font-weight: 500;
+    background: linear-gradient(145deg, #f5f5f5, #d9d9d9);
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .add-to-cart:hover {
+    background: linear-gradient(145deg, #fff, #ccc);
+    border-color: #888;
+  }
+
+  /* 💼 Buy Now Button (Formal Green) */
+  .buy-now {
+    padding: 10px 22px;
+    border: 1px solid #0b3d2e;
+    border-radius: 8px;
+    font-weight: 500;
+    background: linear-gradient(145deg, #0b3d2e, #136f50);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .buy-now:hover {
+    background: linear-gradient(145deg, #136f50, #0b3d2e);
+  }
+
+  /* 🛍️ Suggested Section */
+  .suggested {
+    padding: 60px 10%;
+    text-align: center;
+  }
+
+  .suggested h3 {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+    color: #fff;
+  }
+
+  .suggested-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  .suggested-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    color: #fff;
+    text-decoration: none;
+    width: 180px;
+    text-align: center;
+  }
+
+  .suggested-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .suggested-item img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .suggested-item p {
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+  }
+
+  .suggested-item span {
+    color: #bbb;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .product-page {
+      flex-direction: column;
+      align-items: center;
+    }
+    .product-info {
+      position: static;
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+</style>
+
+<div class="product-page">
+  <!-- 🖼️ Left: Scrollable Images -->
+  <div class="product-images">
+    <% product.images.forEach((img, index) => { %>
+      <img 
+        src="<%= img.replace('public/', '/') %>" 
+        alt="<%= product.name %> image <%= index + 1 %>"
+        class="product-img"
+      >
+    <% }) %>
+  </div>
+
+  <!-- 📄 Right: Sticky Product Info -->
+  <div class="product-info">
+    <h1><%= product.name %></h1>
+    <p class="category"><%= product.category %></p>
+    <p class="description"><%= product.description %></p>
+    <h2 class="price">$<%= product.price %></h2>
+
+    <p class="stock">
+      <% if (product.stock > 0) { %>
+        <span>In Stock: <%= product.stock %></span>
+      <% } else { %>
+        <span class="out-of-stock">Out of Stock</span>
+      <% } %>
+    </p>
+
+    <div class="actions">
+      <label for="quantity">Qty:</label>
+      <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input">
+
+      <form action="/cart/add" method="POST" style="display:inline;">
+        <input type="hidden" name="productId" value="<%= product._id %>">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="add-to-cart">🛒 Add to Cart</button>
+      </form>
+
+      <button class="buy-now">Buy Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- 🛍️ Suggested Products -->
+<section class="suggested">
+  <h3>You May Also Like</h3>
+  <div class="suggested-grid">
+    <% relatedProducts.forEach(prod => { %>
+      <a href="/products/<%= prod._id %>" class="suggested-item">
+        <img src="<%= prod.images[0].replace('public/', '/') %>" alt="<%= prod.name %>">
+        <p><%= prod.name %></p>
+        <span>$<%= prod.price %></span>
+      </a>
+    <% }) %>
+  </div>
+</section>
+
+<%- include("./partials/footer") %>

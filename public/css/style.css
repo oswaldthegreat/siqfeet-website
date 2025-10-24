@@ -1,0 +1,356 @@
+.cssstylingForProductsPageBeginning{
+  gap: 15px;
+}
+
+
+
+
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-card {
+  position: relative;
+  overflow: hidden;
+
+
+
+
+
+
+  border-radius: 0px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.8s ease-in-out;
+}
+
+.hover-image {
+  opacity: 0;
+  
+}
+
+.product-card:hover .hover-image {
+  opacity: 1;
+}
+
+.product-card:hover .main-image {
+  opacity: 0;
+}
+
+.product-info {
+  padding: 15px;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+/* ADMIN FORM STYLING*/
+/* ADMIN FORM STYLING*/
+/* ADMIN FORM STYLING*/
+/* ADMIN FORM STYLING*/
+/* ADMIN FORM STYLING*/
+/* ADMIN FORM STYLING*/
+/* ADMIN FORM STYLING*/
+/* ADMIN FORM STYLING*/
+
+
+
+
+
+
+
+/* logo Preview Styling */
+
+#logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.preview-img-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #222;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.preview-img-logo:hover {
+  transform: scale(1.05);
+  transition: 0.2s ease;
+}
+/* logo Preview Styling ending */
+
+
+
+.form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+
+
+form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #007bff;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+/*  Image Preview Styling */
+.image-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.preview-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.preview-img:hover {
+  transform: scale(1.05);
+}
+/* END  Image Preview Styling */
+
+
+
+
+
+
+
+
+
+
+/* Heading ejs.css styling*/
+/* ---------------- Navbar ---------------- */
+.custom-navbar {
+  background: transparent;
+  transition: background 0.4s ease;
+}
+.custom-navbar:hover {
+  background: rgb(0, 0, 0);
+}
+.navbar .logo-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.nav-link {
+  color: #fff !important;
+  font-weight: 500;
+}
+.nav-link:hover {
+  color: #f0a500 !important;
+}
+
+
+
+#logoText {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+/* ---------------- Hero Section ---------------- */
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+.hero-slide.active {
+  opacity: 1;
+}
+
+/* ---------------- Hero Text ---------------- */
+.hero-text-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.hero-text-container h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8);
+  animation: fadeText 7.36s infinite;
+}
+
+@keyframes fadeText {
+  0%, 10% { opacity: 0; }
+  20%, 80% { opacity: 1; }
+  90%, 100% { opacity: 0; }
+}
+
+/* ---------------- Timer Dots ---------------- */
+.hero-dots {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.5);
+  transition: background-color 0.5s ease;
+}
+.dot.active {
+  background-color: #f0a500;
+}
+
+
+
+/* ---------------- Landing Page Configuration---------------- */
+.LandingPageWelcomeTextH1 {  
+  font-size: 3.0rem;
+  font-weight: 700;
+  color: #000000;
+  text-align: center;
+  
+}
+.LandingPageWelcomeTextp {  
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000000;
+  text-align: center;
+  
+}
+
+#LandingPagesShopNowButton{
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 50%;
+  padding: 12px;
+  background: #ff0202;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#LandingPagesShopNowButton:hover {
+  background: #680202;
+}
+
+/* ---------------- END OF Landing Page Configuration---------------- */
+
+
+
+
+
+/*------------------THE PRODUCT DETAILS PAGE STYLING ALONG WITH THE CUSTOM NAVIGATION BAR CONFIGURATION THAT DOESNT SHOW THE PICTURES---------------------*/
+
+/*------------------END OF THE PRODUCT DETAILS PAGE STYLING---------------------*/
