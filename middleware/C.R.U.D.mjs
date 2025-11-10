@@ -30,7 +30,7 @@ export const createProduct = async (req, res) => {
 export const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    res.json(products);
+    res.render("adminProducts", { products });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -44,7 +44,7 @@ export const updateProduct = async (req, res) => {
     if (req.file) updates.imageUrl = req.file.path;
 
     const updatedProduct = await Product.findByIdAndUpdate(id, updates, { new: true });
-    res.json({ message: "Product updated", updatedProduct });
+    res.render("adminProducts");
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -53,9 +53,12 @@ export const updateProduct = async (req, res) => {
 // Delete Product
 export const deleteProduct = async (req, res) => {
   try {
+
     const { id } = req.params;
     await Product.findByIdAndDelete(id);
-    res.json({ message: "Product deleted" });
+    console.log(`🗑 Product ${id} deleted`);
+     const products = await Product.find();
+    res.render("adminProducts", { products });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

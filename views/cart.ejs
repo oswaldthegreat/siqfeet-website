@@ -1,260 +1,390 @@
 <%- include("./partials/headerForProductDetails", { title: "Your Cart" }) %>
 
-<style>
-  body {
-    background: radial-gradient(circle at top left, #000, #111, #222);
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .cart-container {
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 2rem;
-    width: 90%;
-    max-width: 900px;
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
-    margin: 2rem auto;
-  }
-
-  .cart-header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .cart-header h2 {
-    font-weight: 600;
-    background: linear-gradient(90deg, #fff, #aaa, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-  }
-
-  thead {
-    background: rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  thead th {
-    padding: 1rem;
-    font-weight: 500;
-    font-size: 0.95rem;
-    color: #ddd;
-  }
-
-  tbody td {
-    padding: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    vertical-align: middle;
-  }
-
-  tbody tr:hover {
-    background: rgba(255, 255, 255, 0.03);
-    transition: 0.3s;
-  }
-
-  img {
-    width: 60px;
-    border-radius: 10px;
-    margin-right: 0.8rem;
-    vertical-align: middle;
-  }
-
-  .qty {
-    width: 60px;
-    padding: 0.4rem;
-    border-radius: 6px;
-    border: 1px solid #555;
-    background: transparent;
-    color: white;
-    text-align: center;
-    outline: none;
-    transition: 0.3s;
-  }
-
-  .qty:focus {
-    border-color: #ccc;
-    box-shadow: 0 0 10px rgba(255,255,255,0.2);
-  }
-
-  .remove {
-    padding: 0.5rem 0.9rem;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    background: linear-gradient(90deg, #bbb, #fff, #bbb);
-    color: #000;
-    transition: 0.3s;
-  }
-
-  .remove:hover {
-    background: linear-gradient(90deg, #fff, #aaa, #fff);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-  }
-
-  .cart-total {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255,255,255,0.05);
-    padding: 1rem 1.5rem;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .cart-total h3 {
-    font-size: 1.2rem;
-    background: linear-gradient(90deg, #fff, #aaa, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .btn {
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #bbb, #fff, #bbb);
-    color: #000;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 0 10px rgba(255,255,255,0.2);
-    transition: 0.3s;
-  }
-
-  .btn:hover {
-    background: linear-gradient(90deg, #fff, #aaa, #fff);
-    box-shadow: 0 0 25px rgba(255,255,255,0.4);
-  }
-
-  .empty {
-    height: 60vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #ccc;
-    text-align: center;
-  }
-
-  @media (max-width: 700px) {
-    table, thead, tbody, th, td, tr {
-      display: block;
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #000, #111, #222);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
+
+    .cart-container {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+      margin: 2rem auto;
+    }
+
+    .cart-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .cart-header h2 {
+      font-weight: 600;
+      background: linear-gradient(90deg, #fff, #aaa, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
     thead {
-      display: none;
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
+
+    thead th {
+      padding: 1rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #ddd;
+    }
+
     tbody td {
-      padding: 1rem 0;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      vertical-align: middle;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+      transition: 0.3s;
+    }
+
+    img {
+      width: 60px;
+      border-radius: 10px;
+      margin-right: 0.8rem;
+      vertical-align: middle;
+    }
+
+    .qty {
+      width: 60px;
+      padding: 0.4rem;
+      border-radius: 6px;
+      border: 1px solid #555;
+      background: transparent;
+      color: white;
+      text-align: center;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .qty:focus {
+      border-color: #ccc;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .remove {
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
       border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background: linear-gradient(90deg, #bbb, #fff, #bbb);
+      color: #000;
+      transition: 0.3s;
+    }
+
+    .remove:hover {
+      background: linear-gradient(90deg, #fff, #aaa, #fff);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    .cart-total {
+      margin-top: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    tbody td::before {
-      content: attr(data-label);
-      font-weight: 500;
-      color: #aaa;
-    }
-  }
-</style>
 
-<div class="cart-container">
-  <div class="cart-header">
-    <div class="logo" style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#aaa,#fff,#aaa);margin:0 auto 1rem auto;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-      <img src="/logo/siqfit.png" alt="Logo" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+    .cart-total h3 {
+      font-size: 1.2rem;
+      background: linear-gradient(90deg, #fff, #aaa, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #bbb, #fff, #bbb);
+      color: #000;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: linear-gradient(90deg, #fff, #aaa, #fff);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+    }
+
+    .empty {
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ccc;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody td {
+        padding: 1rem 0;
+        border: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      tbody td::before {
+        content: attr(data-label);
+        font-weight: 500;
+        color: #aaa;
+      }
+
+      /* ---------------- styling for the check orders section---------------- */
+
+      #checkOrders {
+        opacity: 0;
+        transition: opacity 0.6s ease;
+      }
+
+      #checkOrders.show {
+        opacity: 1;
+      }
+
+
+    }
+  </style>
+
+  <div class="cart-container">
+    <div class="cart-header">
+      <div class="logo"
+        style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#aaa,#fff,#aaa);margin:0 auto 1rem auto;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+        <img src="/logo/siqfit.png" alt="Logo" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+      </div>
+      <h2>Your Cart</h2>
     </div>
-    <h2>Your Cart</h2>
+
+    <% if (!user.cart || user.cart.length===0) { %>
+      <div class="empty">Your cart is empty... 🛍️</div>
+      <% } else { %>
+
+        <% if (success && success.length> 0) { %>
+          <div class="alert alert-success">
+            <%= success[0] %>
+          </div>
+          <% } %>
+
+            <% if (error && error.length> 0) { %>
+              <div class="alert alert-danger">
+                <%= error[0] %>
+              </div>
+              <% } %>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Price</th>
+                      <th>Qty</th>
+                      <th>Total</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% let sum=0; user.cart.forEach(item=> {
+                      const subtotal = item.quantity * item.priceAtAdd;
+                      sum += subtotal;
+                      %>
+                      <tr data-id="<%=item.product._id %>">
+                        <td data-label="Product">
+                          <img src="<%=item.product.images[0].replace('public/','/') %>" />
+                          <%= item.product.name %>
+                        </td>
+
+                        <td data-label="Price" data-price-of-one="<%=item.priceAtAdd %>">Ksh <%= item.priceAtAdd %>
+
+                        </td>
+                        <td data-label="Qty">
+                          <input id="itemQuantity" class="qty" data-quantity="<%=item.quantity %>""
+                          data-id=" <%=item.product._id %>" value="<%=item.quantity %>"
+                            type="number" min="1">
+                        </td>
+
+                        <td data-label="Total">Ksh <%= subtotal %>
+                        </td>
+                        <td><button class="remove" data-id="<%=item.product._id %>">Remove</button></td>
+                      </tr>
+                      <% }) %>
+                  </tbody>
+                </table>
+
+                <div class="cart-total">
+                  <h3>Total: Ksh <%= sum %>
+                  </h3>
+
+
+                  <!-- so here we have set the data-amount attribute to sum so that we can use it in java script without any errors -->
+
+                  <button id="checkoutBtn" class="btn" data-amount="<%= sum %>"
+                    data-items="<%= user.cart.map(i => `${i.name}x(${i.quantity})x(${i.price})`).join(', ') %>">Checkout</button>
+                </div>
+
+                <div id="phoneModal" style="display:none; text-align:center; margin-top:20px;">
+                  <input id="phoneNumber" placeholder="Enter your phone number e.g. 2547XXXXXXXX"
+                    style="padding:10px; width:80%; border-radius:8px; border:1px solid #ccc; margin-bottom:10px;">
+                  <br>
+                  <button id="confirmCheckout" class="btn">Confirm Payment</button>
+                </div>
+
+                <div id="checkOrders" style="display:none; text-align:center; margin-top:20px;">
+                  <p style="margin-bottom:10px;">
+                    Have you completed your payment? You can check your order status below:
+                  </p>
+                  <a href="/my-orders" class="btn">Check My Orders</a>
+                  <p style="font-size:0.9rem; color:#bbb; margin-top:10px;">
+                    Once delivered, you will be updated through your email.
+                  </p>
+                </div>
+
+
+                <% } %>
   </div>
 
-  <% if (!user.cart || user.cart.length === 0) { %>
-    <div class="empty">Your cart is empty... 🛍️</div>
-  <% } else { %>
 
-    <% if (success && success.length > 0) { %>
-      <div class="alert alert-success"><%= success[0] %></div>
-    <% } %>
 
-    <% if (error && error.length > 0) { %>
-      <div class="alert alert-danger"><%= error[0] %></div>
-    <% } %>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Qty</th>
-          <th>Total</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% let sum = 0; user.cart.forEach(item => { 
-             const subtotal = item.quantity * item.priceAtAdd;
-             sum += subtotal;
-        %>
-          <tr data-id="<%= item.product._id %>">
-            <td data-label="Product">
-              <img src="<%= item.product.images[0].replace('public/','/') %>" />
-              <%= item.product.name %>
-            </td>
-            <td data-label="Price">Ksh <%= item.priceAtAdd %></td>
-            <td data-label="Qty">
-              <input class="qty" data-id="<%= item.product._id %>" value="<%= item.quantity %>" type="number" min="1">
-            </td>
-            <td data-label="Total">Ksh <%= subtotal %></td>
-            <td><button class="remove" data-id="<%= item.product._id %>">Remove</button></td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table>
-
-    <div class="cart-total">
-      <h3>Total: Ksh <%= sum %></h3>
-      <a href="/checkout" class="btn">Checkout</a>
-    </div>
-  <% } %>
-</div>
-
-<script>
-  // Update quantity dynamically
-  document.querySelectorAll('.qty').forEach(el => {
-    el.addEventListener('change', e => {
-      const productId = e.target.dataset.id;
-      const quantity = e.target.value;
-      fetch('/cart/update', { 
-        method: 'POST', 
-        headers: {'Content-Type':'application/json'}, 
-        body: JSON.stringify({productId, quantity}) 
-      }).then(()=> location.reload());
+  <script>
+    // Update quantity dynamically
+    document.querySelectorAll('.qty').forEach(el => {
+      el.addEventListener('change', e => {
+        const productId = e.target.dataset.id;
+        const quantity = e.target.value;
+        fetch('/cart/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ productId, quantity })
+        }).then(() => location.reload());
+      });
     });
-  });
 
-  // Remove product
-  document.querySelectorAll('.remove').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const productId = e.target.dataset.id;
-      fetch('/cart/update', { 
-        method: 'POST', 
-        headers: {'Content-Type':'application/json'}, 
-        body: JSON.stringify({productId, quantity:0}) 
-      }).then(()=> location.reload());
+    
+    // Remove product
+    document.querySelectorAll('.remove').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const productId = e.target.dataset.id;
+        fetch('/cart/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ productId, quantity: 0 })
+        }).then(() => location.reload());
+      });
     });
-  });
-</script>
 
-<%- include('./partials/footer') %>
+
+
+
+    //handling stk push on checkout//handling stk push on checkout//handling stk push on checkout//handling stk push on checkout//handling stk push on checkout
+    //handling stk push on checkout
+
+    document.getElementById("checkoutBtn").addEventListener("click", () => {
+      document.getElementById("phoneModal").style.display = "block";
+    });
+
+
+
+    document.getElementById("confirmCheckout").addEventListener("click", async () => {
+
+
+      const phone_number = document.getElementById("phoneNumber").value;
+
+      //here we set the Cart items to the value we set in the data set attribute in the checkout button
+      const cartItems = document.getElementById("checkoutBtn").dataset.items;
+
+      //so here we set the data set variable we set earlier to amount variable
+      const amount = document.getElementById("checkoutBtn").dataset.amount;
+
+
+      //so here we get the quantity of the item 
+
+
+      // total description  amount of things checked out which will represent the account refrenece and description account from EJS variable
+      const DescriptionOfWhatTheUserPaidFor = document.getElementById("checkoutBtn").dataset.items + Date.now();
+
+
+      if (!phone_number || !phone_number.startsWith("254")) {
+        alert("Please enter a valid phone number starting with 254");
+        return;
+      }
+
+
+
+
+
+      try {
+        const res = await fetch("api/mpesa/stk_push", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone_number, amount, DescriptionOfWhatTheUserPaidFor, cartItems }),
+        });
+
+        const data = await res.json();
+        console.log("STK Response:", data);
+
+        if (data.ResponseDescription) {
+          alert("Please complete payment on your phone.");
+
+          const checkOrdersDiv = document.getElementById("checkOrders");
+          checkOrdersDiv.style.display = "block";
+          setTimeout(() => checkOrdersDiv.classList.add("show"), 100);
+
+
+        } else {
+          alert("Payment request failed. Try again.");
+        }
+      } catch (err) {
+        console.error("Error:", err.message);
+        alert("Error initiating payment. Check console for details.");
+      }
+    });
+
+  </script>
+
+  <%- include('./partials/footer') %>

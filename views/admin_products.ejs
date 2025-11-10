@@ -1,4 +1,17 @@
-<%- include("./partials/header", { title: "Add New Product" }) %>
+<%- include("./partials/headerForProductDetails", { title: admin }) %>
+<style>
+  body{
+    background-color: rgb(161, 161, 161);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem 1rem;
+  }
+</style>
 
 <div class="form-container">
   <form action="/api/admin/add_product" method="POST" enctype="multipart/form-data">

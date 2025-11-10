@@ -1,0 +1,143 @@
+<%- include("./partials/headerForProductDetails", { title: "Admin Dashboard | Orders" }) %>
+
+<style>
+  body {
+    background: radial-gradient(circle at top left, #000, #111, #222);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  .admin-container {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 95%;
+    max-width: 1100px;
+    margin: auto;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+  }
+
+  h1 {
+    text-align: center;
+    background: linear-gradient(90deg, #fff, #aaa, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+  }
+
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  th {
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+  }
+
+  tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .status {
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 0.85rem;
+  }
+
+  .status.pending { background: rgba(255, 215, 0, 0.2); color: #ffd700; }
+  .status.paid { background: rgba(0, 255, 127, 0.2); color: #00ff99; }
+  .status.failed { background: rgba(255, 99, 71, 0.2); color: #ff6666; }
+  .status.shipped { background: rgba(0, 191, 255, 0.2); color: #00bfff; }
+
+  .btn-view {
+    background: linear-gradient(90deg, #bbb, #fff, #bbb);
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  }
+
+  .btn-view:hover {
+    background: linear-gradient(90deg, #fff, #aaa, #fff);
+    box-shadow: 0 0 20px rgba(255,255,255,0.4);
+  }
+
+  @media (max-width: 800px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+    th { display: none; }
+    td {
+      border: none;
+      padding: 0.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      display: block;
+      color: #aaa;
+    }
+  }
+</style>
+
+<div class="admin-container">
+  <h1>All Orders Overview</h1>
+
+  <% if (orders.length === 0) { %>
+    <p style="text-align:center;color:#bbb;">No orders yet 🛒</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>User</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Total (KES)</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orders.forEach(order => { %>
+          <tr>
+            <td data-label="Order ID"><%= order._id %></td>
+            <td data-label="User"><%= order.user?.name || 'Unknown' %></td>
+            <td data-label="Email"><%= order.user?.email || 'N/A' %></td>
+            <td data-label="Status">
+              <span class="status <%= order.status %>"><%= order.status %></span>
+            </td>
+            <td data-label="Total">KES <%= order.total.toFixed(2) %></td>
+            <td data-label="Date"><%= order.createdAt.toLocaleString() %></td>
+            <td data-label="Action">
+              <a href="/api/admin/orders/<%= order._id %>" class="btn-view">Details</a>
+            </td>
+          </tr>
+          
+          
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include("./partials/footer") %>

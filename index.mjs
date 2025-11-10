@@ -14,6 +14,7 @@ import CartRouter from "./routes/api/cart.mjs";
 import UsersRouter from "./routes/api/users.mjs";
 import flash from 'connect-flash';
 import AuthRoutes from "./routes/api/admin_routes.mjs";
+import OrderRouter from "./routes/api/orders.mjs";
 
 
 const app = express();
@@ -22,6 +23,7 @@ app.set("views", "./views");
 
 await dbConnect();
 app.use(express.urlencoded({ extended: true }));
+
 
 app.use(cookieParser(process.env.SESSION_SECRET));
 
@@ -33,6 +35,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use(flash());
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user || null;
+  next();
+});
+
+
+import mpesaRouter from './routes/api/mpesa_route.mjs';
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
@@ -47,6 +56,8 @@ app.use(CartRouter);
 app.use(UsersRouter);
 app.use(ProductsRouter);
 app.use("/api/admin", AuthRoutes);
+app.use("/api/mpesa", mpesaRouter);
+app.use( OrderRouter);
 
 
 
@@ -64,6 +75,7 @@ app.listen(PORT, () => {
 
 
 app.get("/", (req, res) => {
+
   res.render("landing");
 });
 
@@ -96,7 +108,7 @@ app.get("/product_details/:id", async (req, res) => {
 
 
 app.get("/admin", async (req, res) => {
-  res.render("admin", { admin: "OSWALD" });
+  res.render("admin", { user: "OSWALD" });
 });
 
 app.get("/contact", async (req, res) => {

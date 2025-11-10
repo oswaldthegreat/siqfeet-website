@@ -2,7 +2,7 @@
 
 <style>
   body {
-    font-family: "Poppins", sans-serif;
+    font-family: "Oswald", sans-serif;
     background-color: black;
     color: #fff;
     margin: 0;
@@ -239,7 +239,13 @@
         <button type="submit" class="add-to-cart">🛒 Add to Cart</button>
       </form>
 
-      <button class="buy-now">Buy Now</button>
+
+      <form action="/cart/add" method="POST" style="display:inline;">
+        <input type="hidden" name="productId" value="<%= product._id %>">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="buy-now">Buy Now</button>
+      </form>
+      
     </div>
   </div>
 </div>
@@ -249,7 +255,7 @@
   <h3>You May Also Like</h3>
   <div class="suggested-grid">
     <% relatedProducts.forEach(prod => { %>
-      <a href="/products/<%= prod._id %>" class="suggested-item">
+      <a href="/product_details/<%= prod._id %>" class="suggested-item">
         <img src="<%= prod.images[0].replace('public/', '/') %>" alt="<%= prod.name %>">
         <p><%= prod.name %></p>
         <span>$<%= prod.price %></span>

@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title><%= title %></title>
+  <title>
+    <%= title %>
+  </title>
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,6 +13,7 @@
 
   <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
   <!-- 🧭 Transparent Navigation -->
   <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
@@ -23,8 +27,17 @@
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/products">Products</a></li>
-          <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
-          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+
+          <% if (currentUser && currentUser.isAdmin) { %>
+           <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+            <% } %>
+
+
+              
+
+
+              <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+              <li class="nav-item"><a class="nav-link" href="/my-orders">Orders</a></li>
         </ul>
       </div>
 
@@ -63,7 +76,7 @@
       "SMOOTH_BOLD_INFINITE.",
       "SIQ_FIT—ONE_DOSE_OF_STYLE."
     ];
-    
+
     let index = 0;
     const duration = 7360; // 7.36 seconds
 

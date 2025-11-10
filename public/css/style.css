@@ -117,7 +117,7 @@
 .form-container {
   max-width: 600px;
   margin: 50px auto;
-  background: #fff;
+  background: #c5c5c5;
   padding: 25px 30px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -126,7 +126,7 @@
 form h2 {
   text-align: center;
   margin-bottom: 25px;
-  color: #333;
+  color: #000000;
 }
 
 
@@ -135,7 +135,7 @@ form label {
   display: block;
   margin-bottom: 6px;
   font-weight: 600;
-  color: #444;
+  color: #000000;
 }
 
 form input,
@@ -211,7 +211,7 @@ button:hover {
 
 
 
-/* Heading ejs.css styling*/
+/* THE Landing page Heading ejs.css styling*/
 /* ---------------- Navbar ---------------- */
 .custom-navbar {
   background: transparent;
