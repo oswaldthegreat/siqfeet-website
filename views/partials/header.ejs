@@ -3,49 +3,128 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>
-    <%= title %>
-  </title>
+  <title><%= title %></title>
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
   <link rel="stylesheet" href="/css/style.css">
+
+  <style>
+    /* ----------------------------
+       📱 MOBILE SIDE MENU SYSTEM
+       ---------------------------- */
+
+    /* Hamburger visible only on phone */
+    #mobileMenuBtn {
+      display: none;
+    }
+
+    @media (max-width: 991px) {
+      #mobileMenuBtn {
+        display: block;
+      }
+
+      /* Hide desktop nav links on phone */
+      #navbarNav {
+        display: none !important;
+      }
+    }
+
+    /* Mobile side menu */
+    #sideMenu {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 60px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      transition: left 0.35s ease;
+      z-index: 99999;
+    }
+
+    #sideMenu a {
+      color: white;
+      font-size: 1.3rem;
+      text-decoration: none;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+
+    #sideMenu.open {
+      left: 0;
+    }
+
+    #closeMenuBtn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.7rem;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- 🧭 Transparent Navigation -->
+  <!-- 🧭 Transparent Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
     <div class="container-fluid px-4">
+
+      <!-- Logo -->
       <a class="navbar-brand d-flex align-items-center" href="/">
         <img src="/logo/siqfit.png" alt="SIQFIT Logo" class="logo-img me-2">
         <span id="logoText">SIQFIT</span>
       </a>
 
+      <!-- ✅ MOBILE MENU BUTTON -->
+      <button id="mobileMenuBtn" class="border-0 bg-transparent text-white">
+        <i class="bi bi-list" style="font-size: 2rem;"></i>
+      </button>
+
+      <!-- Desktop Nav Stays (Unchanged) -->
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/products">Products</a></li>
 
           <% if (currentUser && currentUser.isAdmin) { %>
-           <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
-            <% } %>
+          <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+          <% } %>
 
-
-              
-
-
-              <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-              <li class="nav-item"><a class="nav-link" href="/my-orders">Orders</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="/my-orders">Orders</a></li>
         </ul>
       </div>
 
+      <!-- Cart Icon -->
       <a href="/cart" class="nav-link text-white fs-4">
         <i class="bi bi-cart3"></i>
       </a>
     </div>
   </nav>
+
+  <!-- ✅ MOBILE SIDE MENU -->
+  <div id="sideMenu">
+    <button id="closeMenuBtn"><i class="bi bi-x-lg"></i></button>
+
+    <a href="/">Home</a>
+    <a href="/products">Products</a>
+
+    <% if (currentUser && currentUser.isAdmin) { %>
+    <a href="/admin">Admin</a>
+    <% } %>
+
+    <a href="/contact">Contact</a>
+    <a href="/my-orders">Orders</a>
+  </div>
 
   <!-- 🖼️ Hero Carousel -->
   <div class="hero-container">
@@ -66,8 +145,8 @@
     </div>
   </div>
 
+  <!-- HERO CAROUSEL JS -->
   <script>
-    // 🌀 Dynamic carousel controller (JS synced animation)
     const slides = document.querySelectorAll('.hero-slide');
     const dots = document.querySelectorAll('.dot');
     const text = document.getElementById('heroText');
@@ -78,20 +157,37 @@
     ];
 
     let index = 0;
-    const duration = 7360; // 7.36 seconds
+    const duration = 7360;
 
     setInterval(() => {
-      // Fade out current
       slides[index].classList.remove('active');
       dots[index].classList.remove('active');
 
       index = (index + 1) % slides.length;
 
-      // Fade in next
       slides[index].classList.add('active');
       dots[index].classList.add('active');
       text.textContent = slogans[index];
     }, duration);
   </script>
 
+  <!-- ✅ MOBILE SIDE MENU JS -->
+  <script>
+    const sideMenu = document.getElementById("sideMenu");
+    const openBtn = document.getElementById("mobileMenuBtn");
+    const closeBtn = document.getElementById("closeMenuBtn");
+
+    openBtn.addEventListener("click", () => {
+      sideMenu.classList.add("open");
+    });
+
+    closeBtn.addEventListener("click", () => {
+      sideMenu.classList.remove("open");
+    });
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
