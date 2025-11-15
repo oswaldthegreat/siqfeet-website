@@ -411,28 +411,6 @@ button:hover {
 
 
 
-/*------------------PRELOADER.JS---------------------*/
 
-#pre-loader{
-    background:#000 url(/loader/ezgif-81516bd1ee0ba976.gif)no-repeat center center;
-    height:100vh;
-    width:100%;
-    background-size:32% ;
-    display: flex;
-    color: white;
-    font-weight: 800;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-family: font1;
-    font-size: 3rem;
-    
-    z-index:100;
-
-}
-body{
-    margin:0;
-
-}
 
 
