@@ -38,6 +38,12 @@
 </head>
 
 <body>
+
+  <!-- Loading overlay -->
+  <div id="pre-loader">
+    Loading...
+    
+  </div>
   <!-- 🧭 Transparent Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
     <div class="container-fluid px-4">
@@ -98,6 +104,15 @@
       <span class="dot"></span>
     </div>
   </div>
+ <!-- LOADER JS -->
+  <script>
+
+    const loader = document.getElementById("pre-loader");
+
+    window.addEventListener("load",function(){
+        loader.style.display = "none";
+    })
+  </script>
 
   <!-- HERO CAROUSEL JS -->
   <script>

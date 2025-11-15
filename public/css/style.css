@@ -409,4 +409,30 @@ button:hover {
 
 /*------------------THE PRODUCT DETAILS PAGE STYLING ALONG WITH THE CUSTOM NAVIGATION BAR CONFIGURATION THAT DOESNT SHOW THE PICTURES---------------------*/
 
-/*------------------END OF THE PRODUCT DETAILS PAGE STYLING---------------------*/
+
+
+/*------------------PRELOADER.JS---------------------*/
+
+#pre-loader{
+    background:#000 url(/loader/004950db0ce20ddf8ca0d2b54a3cc538.gif)no-repeat center center;
+    height:100vh;
+    width:100%;
+    background-size:32% ;
+    display: flex;
+    color: white;
+    font-weight: 800;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: font1;
+    font-size: 3rem;
+    
+    z-index:100;
+
+}
+body{
+    margin:0;
+
+}
+
+
