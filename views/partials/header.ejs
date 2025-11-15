@@ -8,69 +8,33 @@
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/css/style.css">
 
   <style>
-    /* ----------------------------
-       📱 MOBILE SIDE MENU SYSTEM
-       ---------------------------- */
+  @media (max-width: 575px) {
+  .product-list {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 
-    /* Hamburger visible only on phone */
-    #mobileMenuBtn {
-      display: none;
-    }
+  
 
-    @media (max-width: 991px) {
-      #mobileMenuBtn {
-        display: block;
-      }
+  }
 
-      /* Hide desktop nav links on phone */
-      #navbarNav {
-        display: none !important;
-      }
-    }
+  .hero-text-container h1 {
+  font-size: 1.5rem;}
 
-    /* Mobile side menu */
-    #sideMenu {
-      position: fixed;
-      top: 0;
-      left: -260px;
-      width: 260px;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(8px);
-      padding: 60px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-      transition: left 0.35s ease;
-      z-index: 99999;
-    }
+  #pageMessage{
+  font-size:1rem
+}
+}
 
-    #sideMenu a {
-      color: white;
-      font-size: 1.3rem;
-      text-decoration: none;
-      letter-spacing: 1px;
-      font-weight: 500;
-    }
 
-    #sideMenu.open {
-      left: 0;
-    }
+</style>
 
-    #closeMenuBtn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.7rem;
-    }
-  </style>
+
+
+
 </head>
 
 <body>
@@ -84,10 +48,10 @@
         <span id="logoText">SIQFIT</span>
       </a>
 
-      <!-- ✅ MOBILE MENU BUTTON -->
-      <button id="mobileMenuBtn" class="border-0 bg-transparent text-white">
-        <i class="bi bi-list" style="font-size: 2rem;"></i>
-      </button>
+
+
+     
+    
 
       <!-- Desktop Nav Stays (Unchanged) -->
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
@@ -99,7 +63,8 @@
           <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
           <% } %>
 
-          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+
           <li class="nav-item"><a class="nav-link" href="/my-orders">Orders</a></li>
         </ul>
       </div>
@@ -111,30 +76,19 @@
     </div>
   </nav>
 
-  <!-- ✅ MOBILE SIDE MENU -->
-  <div id="sideMenu">
-    <button id="closeMenuBtn"><i class="bi bi-x-lg"></i></button>
-
-    <a href="/">Home</a>
-    <a href="/products">Products</a>
-
-    <% if (currentUser && currentUser.isAdmin) { %>
-    <a href="/admin">Admin</a>
-    <% } %>
-
-    <a href="/contact">Contact</a>
-    <a href="/my-orders">Orders</a>
-  </div>
+  
 
   <!-- 🖼️ Hero Carousel -->
   <div class="hero-container">
-    <div class="hero-slide active" style="background-image: url('/images/hero1.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('/images/hero2.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('/images/hero3.jpg');"></div>
+    <div class="hero-slide active" style="background-image: url('/images/hero1.png');"></div>
+    <div class="hero-slide" style="background-image: url('/images/hero2.png');"></div>
+    <div class="hero-slide" style="background-image: url('/images/hero3.png');"></div>
 
     <!-- Centered Text -->
     <div class="hero-text-container">
       <h1 id="heroText">SIQ_FIT_SIQLY_GOOD.</h1>
+       <p id="pageMessage" style=" color:#fff; text-shadow:1px 1px 8px rgba(0,0,0,0.7); margin-top:15px;"></p>
+      
     </div>
 
     <!-- Timer Dots -->
@@ -150,6 +104,7 @@
     const slides = document.querySelectorAll('.hero-slide');
     const dots = document.querySelectorAll('.dot');
     const text = document.getElementById('heroText');
+    const pageMessage = document.getElementById("pageMessage");
     const slogans = [
       "SIQ_FIT_SIQLY_GOOD.",
       "SMOOTH_BOLD_INFINITE.",
@@ -168,26 +123,64 @@
       slides[index].classList.add('active');
       dots[index].classList.add('active');
       text.textContent = slogans[index];
+
     }, duration);
   </script>
 
-  <!-- ✅ MOBILE SIDE MENU JS -->
-  <script>
-    const sideMenu = document.getElementById("sideMenu");
-    const openBtn = document.getElementById("mobileMenuBtn");
-    const closeBtn = document.getElementById("closeMenuBtn");
 
-    openBtn.addEventListener("click", () => {
-      sideMenu.classList.add("open");
-    });
-
-    closeBtn.addEventListener("click", () => {
-      sideMenu.classList.remove("open");
-    });
-  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-</body>
+<script>
+  //this is the script for the highlighting of the nav bar depending on the page
+document.addEventListener("DOMContentLoaded", () => {
+  const desktopLinks = document.querySelectorAll(".navbar .nav-link");
+  const mobileLinks = document.querySelectorAll("#sideMenu a");
 
-</html>
+  const currentPath = window.location.pathname.replace(/\/$/, "") || "/";
+
+  function activateLinks(links) {
+    links.forEach(link => {
+
+      if (link.getAttribute("href").startsWith("#")) return;
+
+      const linkPath = new URL(link.href).pathname.replace(/\/$/, "");
+      if (linkPath === currentPath ) {
+        link.classList.add("active");
+      }
+    });
+  }
+
+  activateLinks(desktopLinks);
+  activateLinks(mobileLinks);
+});
+</script>
+
+
+<script>
+  //this is the script for the homepage/products page mesaage
+document.addEventListener("DOMContentLoaded", () => {
+  const pageMessage = document.getElementById("pageMessage");
+  const path = window.location.pathname.replace(/\/$/, "") || "/";
+
+  let message = "";
+
+  switch(path) {
+    
+    case "/products":
+      message = "Scroll down to see our products! ";
+      break;
+    
+    
+    
+    default:
+      message = "";
+  }
+
+  pageMessage.textContent = message;
+});
+</script>
+
+
+
+

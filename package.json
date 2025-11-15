@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.mjs"
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Oswald Gikandi Ngare",
   "license": "ISC",

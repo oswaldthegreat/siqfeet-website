@@ -1,7 +1,32 @@
+
+@font-face {
+  font-family:font1;
+  src: url(/fonts/FleurDeLeah-Regular.ttf);
+}
+
+@font-face {
+  font-family:font2;
+  src: url(/fonts/Ephesis-Regular.ttf);
+}
+
+
+
+
+
+
+
+
 .cssstylingForProductsPageBeginning{
   gap: 15px;
 }
 
+
+@media (max-width: 575px) {
+  .product-list {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+}
 
 
 
@@ -16,16 +41,16 @@
 .product-card {
   position: relative;
   overflow: hidden;
-
-
-
-
-
-
   border-radius: 0px;
   background: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
+
+}
+
+
+.product-details-p {
+  font-size: 1.3rem;
 }
 
 .product-card:hover {
@@ -213,6 +238,19 @@ button:hover {
 
 /* THE Landing page Heading ejs.css styling*/
 /* ---------------- Navbar ---------------- */
+
+/* Active Navigation Link */
+.nav-link.active,
+#sideMenu a.active {
+  color: #f0a500 !important;
+  border-bottom: 2px solid #f0a500;
+}
+
+
+
+
+
+
 .custom-navbar {
   background: transparent;
   transition: background 0.4s ease;
@@ -235,10 +273,20 @@ button:hover {
   color: #f0a500 !important;
 }
 
+@media (max-width: 575px) {
+  
+  
 
+  #logoText {
+  color: #fff;
+  font-size: 1.0rem;
+  font-weight: 700;
+  margin-left: 10px;
+}}
 
 #logoText {
   color: #fff;
+  
   font-size: 1.5rem;
   font-weight: 700;
   margin-left: 10px;
@@ -281,6 +329,13 @@ button:hover {
   animation: fadeText 7.36s infinite;
 }
 
+
+
+#pageMessage{
+  font-family: font1;
+  font-size:1.5rem
+}
+
 @keyframes fadeText {
   0%, 10% { opacity: 0; }
   20%, 80% { opacity: 1; }
@@ -310,7 +365,8 @@ button:hover {
 
 
 /* ---------------- Landing Page Configuration---------------- */
-.LandingPageWelcomeTextH1 {  
+.LandingPageWelcomeTextH1 { 
+  font-family: font1; 
   font-size: 3.0rem;
   font-weight: 700;
   color: #000000;
