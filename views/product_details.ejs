@@ -18,10 +18,16 @@
     flex-wrap: wrap;
   }
 
-  /* 🖼️ Product Images */
+  /* ======================================
+     DESKTOP IMAGE DISPLAY
+     ====================================== */
   .product-images {
     flex: 1;
     max-width: 450px;
+    position: relative; /* Needed for dots overlay */
+  }
+
+  .image-track {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -40,7 +46,14 @@
     border-color: rgba(255, 255, 255, 0.3);
   }
 
-  /* 📄 Product Info */
+  /* Hide dots on desktop */
+  .carousel-indicators {
+    display: none;
+  }
+
+  /* ======================================
+     PRODUCT INFO
+     ====================================== */
   .product-info {
     flex: 1;
     max-width: 500px;
@@ -106,7 +119,7 @@
     font-size: 0.9rem;
   }
 
-  /* 🛒 Add to Cart Button (Formal Chrome) */
+  /* Cart buttons */
   .add-to-cart {
     padding: 10px 22px;
     border: 1px solid #666;
@@ -123,7 +136,6 @@
     border-color: #888;
   }
 
-  /* 💼 Buy Now Button (Formal Green) */
   .buy-now {
     padding: 10px 22px;
     border: 1px solid #0b3d2e;
@@ -139,7 +151,9 @@
     background: linear-gradient(145deg, #136f50, #0b3d2e);
   }
 
-  /* 🛍️ Suggested Section */
+  /* ======================================
+     SUGGESTED GRID
+     ====================================== */
   .suggested {
     padding: 60px 10%;
     text-align: center;
@@ -189,44 +203,49 @@
     font-weight: 500;
   }
 
-  .carousel-indicators{
-    display: none;
-  }
- 
+  /* ======================================
+     MOBILE CAROUSEL
+     ====================================== */
 @media (max-width: 480px) {
 
-  /* --- MOBILE IMAGE CAROUSEL --- */
+  /* --- FORCE HORIZONTAL CAROUSEL --- */
   .product-images {
     max-width: 100%;
-    display: flex;
-    flex-direction: row;       /* horizontal layout */
-    overflow-x: auto;          /* horizontal scrolling */
+    width: 100%;
+    overflow: hidden; /* Prevent double scrollbars */
+  }
+
+  /* FIX: TURN IMAGE TRACK INTO A HORIZONTAL SLIDER */
+  .image-track {
+    display: flex !important;
+    flex-direction: row !important; /* <-- FIXED (was column) */
+    overflow-x: auto;               /* <-- scrolling happens here */
     scroll-snap-type: x mandatory;
     gap: 12px;
     width: 100%;
     padding-bottom: 10px;
   }
 
-  .product-images::-webkit-scrollbar {
-    display: none; /* hide scrollbar on mobile */
+  .image-track::-webkit-scrollbar {
+    display: none;
   }
 
+  /* Images should no longer distort */
   .product-img {
-    min-width: 100%;     /* each image takes the entire screen width */
+    min-width: 100%;
     height: auto;
-    scroll-snap-align: center;
+    object-fit: contain;
     border-radius: 16px;
-    object-fit: cover;
+    scroll-snap-align: center;
+    background: #111;
   }
 
-  /* --- PRODUCT INFO FULL WIDTH ON MOBILE --- */
+  /* --- PRODUCT INFO FULL WIDTH --- */
   .product-info {
     position: static;
     max-width: 100%;
     margin-top: 30px;
   }
-
-  /* You can keep your existing mobile font-size overrides below */
 
   .product-info h1 {
     font-size: 2.6em;
@@ -250,14 +269,12 @@
     width: 350px;
   }
 
-
-
-  /*carousel dots*/
+  /* --- CAROUSEL DOTS --- */
   .carousel-indicators {
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
   .carousel-indicators .dot {
@@ -274,28 +291,43 @@
   }
 }
 
+
 </style>
 
+
+
+
+<!-- ======================================
+     PAGE CONTENT
+     ====================================== -->
 <div class="product-page">
-  <!-- 🖼️ Left: Scrollable Images -->
+
+  <!-- Product Image Column -->
   <div class="product-images">
-    <% product.images.forEach((img, index) => { %>
-      <img 
-        src="<%= img.replace('public/', '/') %>" 
-        alt="<%= product.name %> image <%= index + 1 %>"
-        class="product-img"
-      >
-    <% }) %>
+
+    <div class="image-track">
+      <% product.images.forEach((img, index) => { %>
+        <img 
+          src="<%= img.replace('public/', '/') %>" 
+          alt="<%= product.name %> image <%= index + 1 %>"
+          class="product-img"
+          data-index="<%= index %>"
+        >
+      <% }) %>
+    </div>
+
+    <!-- Dot Indicators -->
+    <div class="carousel-indicators">
+      <% product.images.forEach((img, index) => { %>
+        <span class="dot <%= index === 0 ? 'active' : '' %>" data-index="<%= index %>"></span>
+      <% }) %>
+    </div>
+
   </div>
 
-  <div class="carousel-indicators">
-  <% product.images.forEach((img, index) => { %>
-    <span class="dot" data-index="<%= index %>"></span>
-  <% }) %>
-</div>
 
 
-  <!-- 📄 Right: Sticky Product Info -->
+  <!-- Product Info -->
   <div class="product-info">
     <h1><%= product.name %></h1>
     <p class="category"><%= product.category %></p>
@@ -320,18 +352,17 @@
         <button type="submit" class="add-to-cart">🛒 Add to Cart</button>
       </form>
 
-
       <form action="/cart/add" method="POST" style="display:inline;">
         <input type="hidden" name="productId" value="<%= product._id %>">
         <input type="hidden" name="quantity" value="1">
         <button type="submit" class="buy-now">Buy Now</button>
       </form>
-      
     </div>
+
   </div>
 </div>
 
-<!-- 🛍️ Suggested Products -->
+<!-- Suggested Products -->
 <section class="suggested">
   <h3>You May Also Like</h3>
   <div class="suggested-grid">
@@ -345,24 +376,30 @@
   </div>
 </section>
 
+
+
+
+<!-- ======================================
+     JS FOR CAROUSEL DOT UPDATING
+     ====================================== -->
 <script>
-  //script for the mobile carousel dots
-  const carousel = document.querySelector('.product-images');
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector('.image-track');
   const dots = document.querySelectorAll('.dot');
 
-  carousel.addEventListener('scroll', () => {
-    const scrollPosition = carousel.scrollLeft;
-    const imageWidth = carousel.offsetWidth;
+  if (!track) return;
 
-    const index = Math.round(scrollPosition / imageWidth);
+  track.addEventListener('scroll', () => {
+    const scrollX = track.scrollLeft;
+    const width = track.clientWidth;
+    const index = Math.round(scrollX / width);
 
-    dots.forEach((d, i) => {
-      d.classList.toggle('active', i === index);
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
     });
   });
-
-  // Set initial active dot
-  if (dots.length > 0) dots[0].classList.add('active');
+});
 </script>
+
 
 <%- include("./partials/footer") %>
