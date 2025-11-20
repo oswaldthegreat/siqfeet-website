@@ -21,9 +21,13 @@
   display: none;
 }
 
-#mobileMenu{
+@media (min-width: 770px) {
+  /* Your CSS here */
+ #mobileMenu{
   display: none;
+ }
 }
+
 @media (max-width: 768px) {
       #navbarNav {
         display: none !important; /* hide desktop nav on mobile */
@@ -99,6 +103,26 @@
         max-height: 300px; /* adjust according to number of links */
       }
     }
+
+     /* metalic */
+    .metallic-text {
+      font-size: 3rem;
+      font-weight: bold;
+      background: linear-gradient(270deg, #c0c0c0, #fff, #999, #fff, #c0c0c0);
+      background-size: 600% 600%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: liquidMetal 4s ease infinite;
+      text-align: center;
+    }
+
+    @keyframes liquidMetal {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    
   </style>
 </head>
 <body>
@@ -107,7 +131,7 @@
     <div class="container-fluid px-4">
       <a class="navbar-brand d-flex align-items-center" href="/">
         <img src="/logo/siqfit.png" alt="SIQFIT Logo" class="logo-img me-2">
-        <span id="logoText">SIQFIT</span>
+        <span id="logoText" class="metallic-text">SIQFEET</span>
       </a>
 
       <!-- HAMBURGER (MIDDLE) -->

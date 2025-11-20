@@ -1,6 +1,6 @@
 @font-face {
   font-family:oscar;
-  src: url(/fonts/UnifrakturCook-Bold.ttf);
+  src: url(/fonts/JimNightshade-Regular.ttf);
 }
 
 @font-face {
@@ -358,7 +358,7 @@ button:hover {
 
 
 #pageMessage{
-  font-family:myfont;
+  font-family:oscar;
   font-size:2.5rem;
   
 }
