@@ -21,7 +21,13 @@
   src: url(/fonts/Oswald-VariableFont_wght.ttf);
 }
 
-
+/* never to use dark mode*/
+:root {
+  color-scheme: light;
+}
+* {
+  forced-color-adjust: none;
+}
 
 
 
