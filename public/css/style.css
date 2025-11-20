@@ -1,4 +1,12 @@
+@font-face {
+  font-family:oscar;
+  src: url(/fonts/UnifrakturCook-Bold.ttf);
+}
 
+@font-face {
+  font-family:myfont;
+  src: url(/fonts/UnifrakturMaguntia-Regular.ttf);
+}
 @font-face {
   font-family:font1;
   src: url(/fonts/FleurDeLeah-Regular.ttf);
@@ -8,6 +16,11 @@
   font-family:font2;
   src: url(/fonts/Ephesis-Regular.ttf);
 }
+@font-face {
+  font-family:oswald;
+  src: url(/fonts/Oswald-VariableFont_wght.ttf);
+}
+
 
 
 
@@ -286,6 +299,7 @@ button:hover {
 
 #logoText {
   color: #fff;
+  font-family:oswald;
   
   font-size: 1.5rem;
   font-weight: 700;
@@ -293,6 +307,11 @@ button:hover {
 }
 
 /* ---------------- Hero Section ---------------- */
+
+#heroText{
+  font-family: oswald;
+  
+}
 .hero-container {
   position: relative;
   width: 100%;
@@ -325,6 +344,7 @@ button:hover {
   font-size: 3.5rem;
   font-weight: 700;
   color: #fff;
+  font-family: oswald;
   text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8);
   animation: fadeText 7.36s infinite;
 }
@@ -332,8 +352,9 @@ button:hover {
 
 
 #pageMessage{
-  font-family: font1;
-  font-size:1.5rem
+  font-family:myfont;
+  font-size:2.5rem;
+  
 }
 
 @keyframes fadeText {

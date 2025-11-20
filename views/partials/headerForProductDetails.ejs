@@ -11,6 +11,95 @@
 
 
   <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .nav-scrolled {
+  background: black !important;
+  transition: background 0.4s ease;
+}
+
+.hamburger {
+  display: none;
+}
+
+#mobileMenu{
+  display: none;
+}
+@media (max-width: 768px) {
+      #navbarNav {
+        display: none !important; /* hide desktop nav on mobile */
+      }
+
+      .custom-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        background: black;
+      }
+
+      /* Hamburger (center between logo and cart) */
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        cursor: pointer;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: white;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      /* Animate hamburger to X */
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* Mobile dropdown menu */
+      .mobile-menu {
+        position: fixed;
+        top: 60px; /* adjust to navbar height */
+        left: 0;
+        width: 100%;
+        background: black;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+        z-index: 999;
+      }
+
+      .mobile-menu a {
+        padding: 12px 20px;
+        color: white;
+        font-size: 1.2rem;
+        text-decoration: none;
+        display: block;
+      }
+
+      .mobile-menu a:hover {
+        background: #333;
+      }
+
+      .mobile-menu.show {
+        max-height: 300px; /* adjust according to number of links */
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- 🧭 Transparent Navigation -->
@@ -20,6 +109,13 @@
         <img src="/logo/siqfit.png" alt="SIQFIT Logo" class="logo-img me-2">
         <span id="logoText">SIQFIT</span>
       </a>
+
+      <!-- HAMBURGER (MIDDLE) -->
+  <div id="mobileMenuButton" class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav">
@@ -36,3 +132,48 @@
       </a>
     </div>
   </nav>
+
+
+    <!-- MOBILE MENU DROPDOWN (MISSING!!!! ADD THIS) -->
+<div id="mobileMenu" class="mobile-menu">
+  <a href="/">Home</a>
+  <a href="/products">Products</a>
+
+  <% if (currentUser && currentUser.isAdmin) { %>
+  <a href="/admin">Admin</a>
+  <% } %>
+
+  <a href="#contact">Contact</a>
+  <a href="/my-orders">Orders</a>
+</div>
+
+  <script>
+  //the java script for the scroll turning balck
+  const navbar = document.querySelector(".custom-navbar");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      navbar.classList.add("nav-scrolled");
+    } else {
+      navbar.classList.remove("nav-scrolled");
+    }
+  });
+</script>
+
+<script>
+    //java script forrr the monile hamburger
+    const btn = document.getElementById("mobileMenuButton");
+    const menu = document.getElementById("mobileMenu");
+
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("show");
+      btn.classList.toggle("active");
+    });
+
+    document.querySelectorAll("#mobileMenu a").forEach(link => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("show");
+        btn.classList.remove("active");
+      });
+    });
+  </script>

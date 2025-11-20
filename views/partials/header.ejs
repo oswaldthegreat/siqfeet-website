@@ -20,6 +20,7 @@
   
 
   }
+  
 
   .hero-text-container h1 {
   font-size: 1.5rem;}
@@ -27,8 +28,123 @@
   #pageMessage{
   font-size:1rem
 }
+
+ /* Navbar turns black when scrolled */
+
+
 }
 
+.nav-scrolled {
+  background: black !important;
+  transition: background 0.4s ease;
+}
+
+/* HIDE HAMBURGER ON DESKTOP */
+.hamburger {
+  display: none;
+}
+
+@media (min-width: 770px) {
+  /* Your CSS here */
+ #mobileMenu{
+  display: none;
+ }
+}
+
+/*HAMBURGER FOR THE MOBILE NAVBAR*/
+@media (max-width: 768px) {
+      #navbarNav {
+        display: none !important; /* hide desktop nav on mobile */
+      }
+
+      .custom-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        background: black;
+      }
+
+      /* Hamburger (center between logo and cart) */
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        cursor: pointer;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: white;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      /* Animate hamburger to X */
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* Mobile dropdown menu */
+      .mobile-menu {
+        position: fixed;
+        top: 60px; /* adjust to navbar height */
+        left: 0;
+        width: 100%;
+        background: black;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+        z-index: 999;
+      }
+
+      .mobile-menu a {
+        padding: 12px 20px;
+        color: white;
+        font-size: 1.2rem;
+        text-decoration: none;
+        display: block;
+      }
+
+      .mobile-menu a:hover {
+        background: #333;
+      }
+
+      .mobile-menu.show {
+        max-height: 300px; /* adjust according to number of links */
+      }
+    }
+
+     /* metalic */
+    .metallic-text {
+      font-size: 3rem;
+      font-weight: bold;
+      background: linear-gradient(270deg, #c0c0c0, #fff, #999, #fff, #c0c0c0);
+      background-size: 600% 600%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: liquidMetal 4s ease infinite;
+      text-align: center;
+    }
+
+    @keyframes liquidMetal {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
 </style>
 
@@ -47,10 +163,17 @@
       <!-- Logo -->
       <a class="navbar-brand d-flex align-items-center" href="/">
         <img src="/logo/siqfit.png" alt="SIQFIT Logo" class="logo-img me-2">
-        <span id="logoText">SIQFIT</span>
+        <span id="logoText" class="metallic-text">SIQFEET</span>
       </a>
 
+<!-- HAMBURGER (MIDDLE) -->
+  <div id="mobileMenuButton" class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
+  
 
      
     
@@ -78,6 +201,20 @@
     </div>
   </nav>
 
+  <!-- MOBILE MENU DROPDOWN (MISSING!!!! ADD THIS) -->
+<div id="mobileMenu" class="mobile-menu">
+  <a href="/">Home</a>
+  <a href="/products">Products</a>
+
+  <% if (currentUser && currentUser.isAdmin) { %>
+  <a href="/admin">Admin</a>
+  <% } %>
+
+  <a href="#contact">Contact</a>
+  <a href="/my-orders">Orders</a>
+</div>
+
+
   
 
   <!-- 🖼️ Hero Carousel -->
@@ -88,8 +225,8 @@
 
     <!-- Centered Text -->
     <div class="hero-text-container">
-      <h1 id="heroText">SIQ_FIT_SIQLY_GOOD.</h1>
-       <p id="pageMessage" style=" color:#fff; text-shadow:1px 1px 8px rgba(0,0,0,0.7); margin-top:15px;"></p>
+      <h1 id="heroText" >SIQ_FIT_SIQLY_GOOD.</h1>
+       <p id="pageMessage" style=" color:#C0C0C0; text-shadow:1px 1px 8px rgba(0,0,0,0.7); margin-top:15px;"></p>
       
     </div>
 
@@ -172,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
   switch(path) {
     
     case "/products":
-      message = "Scroll down to see our products! ";
+      message = "scroll to see our products! ";
       break;
     
     
@@ -184,6 +321,42 @@ document.addEventListener("DOMContentLoaded", () => {
   pageMessage.textContent = message;
 });
 </script>
+
+
+<script>
+  //the java script for the scroll turning balck
+  const navbar = document.querySelector(".custom-navbar");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      navbar.classList.add("nav-scrolled");
+    } else {
+      navbar.classList.remove("nav-scrolled");
+    }
+  });
+</script>
+
+
+  <script>
+    //java script forrr the monile hamburger
+    const btn = document.getElementById("mobileMenuButton");
+    const menu = document.getElementById("mobileMenu");
+
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("show");
+      btn.classList.toggle("active");
+    });
+
+    document.querySelectorAll("#mobileMenu a").forEach(link => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("show");
+        btn.classList.remove("active");
+      });
+    });
+  </script>
+
+
+
 
 
 
